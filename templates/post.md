@@ -9,4 +9,6 @@ tags:
   - RubyonRails
 ---
 
-# CONTENT
+## 問題
+## やったこと
+## 参考URL
