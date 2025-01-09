@@ -3,11 +3,11 @@ title: "dockerにてrailsの開発環境時に躓いたこと"
 last_modified_at: 2025-01-07T00:00:00+0900
 tags:
   - RubyonRails
+  - Docker
 ---
 
 ## 開発環境
-- Rails 6.1.7.8
-- docker
+- Docker
 
 ## 問題
 - 以下のエラーが出ており、正常にサイトを開くことが出来なかった。エラー文にあるmanifest.jsonをコンテナ内を確認すると、作成されていなかった。
