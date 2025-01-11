@@ -7,7 +7,7 @@ description: "日々のメモ"
 url: https://techdiary.sagglenix.com/
 author:
   name: "sksk000"
-  avatar: ""
+  avatar: "/assets/images/profiles.jpeg"
 # Reading Files
 include:
   - .htaccess
