@@ -1,6 +1,6 @@
 ---
-title: "Dockerで頻繁に使うコマンド"
-last_modified_at: 2024-09-19T00:00:00+0900
+title: "Dockerで頻繁に使うコマンドの整理"
+last_modified_at: 2025-01-09T00:00:00+0900
 tags:
   - Docker
 ---
@@ -9,32 +9,46 @@ tags:
 - Docker
 
 ## コマンド一覧
+##### 起動関連
+- docker-compose.ymlに登録したサービスをバックグランドで起動する。
 ```
-# バックグランドでdocker-compose.ymlに登録したサービスを起動する。
 $ docker compose up -d
-
-# バックグランドでdocker-compose.ymlに登録したサービスをビルドし、起動する。
-# ビルドしてから起動したい場合はこっちを使う。
 $ docker compose up -d --build
 
-# コンテナを停止し、イメージを削除する
+// --build : ビルドしてから起動する
+// -d : shellのバックグラウンドで起動する
+```
+##### 停止関連
+- コンテナの削除、コンテナの停止
+```
 $ docker compose down
-
-# コンテナを停止するだけ
 $ docker compose stop
 
-# コンテナに入る
-# サービス名はdocker-compose.ymlに書かれている
-# コマンドはコンテナ内で実行するコマンド
+// down : コンテナを削除する。コンテナ上の永続化されていないデータは消える。
+// stop : コンテナを停止する。停止したコンテナは後ほど start で再開できる。
+```
+
+##### 操作関連
+- コンテナのshellへの接続
+  - docker compose 管理のサービス名は、docker-compose.ymlに書かれている
+
+```
 $ docker compose exec -it サービス名 コマンド
 
-# コンテナ状況一覧
-# docker-compose.ymlで書かれているすべてのサービスを表示する。
+$ docker compose exec -it web /bin/bash
+
+// コマンドは、コンテナの内部で実行したいコマンドのこと。
+```
+
+##### 状況確認
+- コンテナの起動状況や概要の確認
+```
+$ docker compose ps
 $ docker compose ps -a
 
-# docker-compose.ymlで書かれている起動中のサービスを表示する。
-$ docker compose ps
-
+// -a : 起動や停止の状態に関係なく、docker-compose.ymlに記載のあるすべてのサービスについて表示する
+// 未指定の場合は、起動しているコンテナのみ表示する。
+```
 
 # 検証環境の場合
 
