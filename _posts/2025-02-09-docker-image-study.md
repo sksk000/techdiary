@@ -80,12 +80,12 @@ docker.io/library/ubuntu:20.04
 // 実行すると、今度はubuntu:20.04がダウンロードされる。
 
 >docker image ls
+// イメージがダウンロード出来ているのか確認する。
 
 REPOSITORY      TAG       IMAGE ID       CREATED        SIZE
 ubuntu          latest    72297848456d   12 days ago    117MB
 ubuntu          20.04     8e5c4f0285ec   4 months ago   109MB
 // tagが異なっていることが確認できた。
-
 ```
 
 - `docker image rm`でイメージの削除を行う。
@@ -95,14 +95,13 @@ ubuntu          20.04     8e5c4f0285ec   4 months ago   109MB
 
 Untagged: ubuntu:latest
 Deleted: sha256:72297848456d5d37d1262630108ab308d3e9ec7ed1c3286a32fe09856619a782
-
 // tagを指定していないため、ubuntu:latestが削除された。
 
 >docker image ls
+// イメージが削除されているか確認する。
 
 REPOSITORY      TAG       IMAGE ID       CREATED        SIZE
 ubuntu          20.04     8e5c4f0285ec   4 months ago   109MB
-
 // ubuntu:20.04のみになっている事がわかる。
 ```
 
