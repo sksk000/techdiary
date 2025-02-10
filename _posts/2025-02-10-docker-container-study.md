@@ -9,8 +9,10 @@ tags:
 
 ### コンテナの起動
 
+- `docker container run hello-world`で hello-world のコンテナを起動。
+
 ```
-// コンテナを起動してみる。
+// コンテナを起動
 > docker container run hello-world
 
 //--------------イメージ内のコマンドを実行---------------------------------
@@ -35,19 +37,24 @@ Share images, automate workflows, and more with a free Docker ID:
 For more examples and ideas, visit:
  https://docs.docker.com/get-started/
 
-// hello-worldのイメージは前取得しているため、コンテナを作成し実行だけ行われている。
-// 存在しない場合は、DockerHubからイメージを取得後にコンテナ作成し実行される。
+```
 
-// hello-worldのコンテナがUPステータスではないため、何も表示されない
+- hello-world のコンテナのステータスを`docker container ls`で確認
+
+```
 > docker container ls
 CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+// hello-worldのコンテナがUPステータスではないため、何も表示されない
+```
 
-// -aオプションをつけて再度実行
-// 上記のコマンドと違い、すべてのコンテナを表示することが出来た。
-// ステータスはExitedになっている。
+- hello-world のコンテナのステータスを`docker container ls -a`で確認
+
+```
 > docker container ls -a
 CONTAINER ID   IMAGE          COMMAND                   CREATED        STATUS                    PORTS                    NAMES
 7ed1e46c8f8e   hello-world    "/hello"                  2 hours ago    Exited (0) 2 hours ago                             ecstatic_nash
+// 上記のコマンドと違い、すべてのコンテナを表示することが出来た。
+// ステータスはExitedになっている。
 ```
 
 ### なぜコンテナを起動後、ステータスが Exited になるのか
@@ -58,6 +65,8 @@ CONTAINER ID   IMAGE          COMMAND                   CREATED        STATUS   
   - コマンド実行終了(ステータス:Exited)
 
 ### コンテナのステータスが Up のままだとどうなるのか
+
+- `docker container run nginx`でコンテナを起動する。
 
 ```
 > docker container run nginx
@@ -96,49 +105,61 @@ Status: Downloaded newer image for nginx:latest
 2025/02/10 10:51:28 [notice] 1#1: start worker process 34
 2025/02/10 10:51:28 [notice] 1#1: start worker process 35
 
-// ここで止まっている。
-// ステータスがUpの状態のままになっている。
+// コマンドを受け付けない状態になっている。
+```
 
-// 別でコマンドプロンプトを開き確認
+- 別のコマンドプロンプトにてコンテナの状態を確認する。
+
+```
 > docker container ls
 
-//実行すると、先程起動したnginxのコンテナが表示されている。
 CONTAINER ID   IMAGE     COMMAND                   CREATED              STATUS              PORTS     NAMES
 cde490e8107f   nginx     "/docker-entrypoint.…"   About a minute ago   Up About a minute   80/tcp    trusting_payne
+//実行すると、先程起動したnginxのコンテナが表示されている。
 ```
 
 ### コンテナを停止する
 
+- 検証のため、最初に `docker container run` コマンドで nginx のコンテナを起動する
+- その後、別のコマンドプロンプトで、`docker container ls` で起動されているか確認
+
 ```
-// nginxのコンテナを起動する
 > docker container run nginx
 
-// 別のコマンドプロンプトで、まずは起動されているか確認
 > docker container ls
 CONTAINER ID   IMAGE     COMMAND                   CREATED         STATUS         PORTS     NAMES
 4d148ff25d96   nginx     "/docker-entrypoint.…"   7 seconds ago   Up 6 seconds   80/tcp    affectionate_hermann
+```
 
-// コンテナを停止させる。
->docker container stop コンテナID(NAMEでもOK)
+- `docker container stop` でコンテナを停止させる。
+- `docker contaier ls -a` でコンテナの状態確認
 
-// 再度ls使って停止されているか確認
+```
+>docker container stop <コンテナID(NAMEでもOK)>
+
 >docker container ls
 CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
 
-// -aをつけてステータスを確認
-// ステータスがExitedになっている。
+// docker container ls だけでは表示されない
+```
+
+```
 > docker container ls -a
 CONTAINER ID   IMAGE          COMMAND                   CREATED          STATUS                      PORTS
        NAMES
 4d148ff25d96   nginx          "/docker-entrypoint.…"   7 minutes ago    Exited (0) 4 minutes ago
       affectionate_hermann
 
+// -aをつけて、コンテナのステータス問わず状態確認
+// ステータスがExitedになっている。
 ```
 
 ### コンテナを再起動する
 
+- `docker container restart`でコンテナを再起動する。
+
 ```
-> docker container restart コンテナID(NAMEでもOK)
+> docker container restart <コンテナID(NAMEでもOK)>
 affectionate_hermann
 
 // nginxが再起動され、ステータスがUpに変更されている。
@@ -146,10 +167,13 @@ affectionate_hermann
 CONTAINER ID   IMAGE     COMMAND                   CREATED          STATUS              PORTS     NAMES
 4d148ff25d96   nginx     "/docker-entrypoint.…"   11 minutes ago   Up About a minute   80/tcp    affectionate_hermann
 
-// nginxは起動してるかログを確認してみる。
-> docker container logs affectionate_hermann
+```
 
-// 確認すると、以下の様にログを確認することが出来た。
+- 再起動した nginx コンテナ内のログを確認する。
+
+```
+> docker container logs affectionate_hermann。
+//-------------------初回起動時のログ------------------------------------
 /docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration
 /docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/
 /docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh
@@ -165,82 +189,22 @@ CONTAINER ID   IMAGE     COMMAND                   CREATED          STATUS      
 2025/02/10 11:11:06 [notice] 1#1: OS: Linux 5.15.167.4-microsoft-standard-WSL2
 2025/02/10 11:11:06 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
 2025/02/10 11:11:06 [notice] 1#1: start worker processes
-2025/02/10 11:11:06 [notice] 1#1: start worker process 29
-2025/02/10 11:11:06 [notice] 1#1: start worker process 30
-2025/02/10 11:11:06 [notice] 1#1: start worker process 31
-2025/02/10 11:11:06 [notice] 1#1: start worker process 32
-2025/02/10 11:11:06 [notice] 1#1: start worker process 33
-2025/02/10 11:11:06 [notice] 1#1: start worker process 34
-2025/02/10 11:11:06 [notice] 1#1: start worker process 35
-2025/02/10 11:11:06 [notice] 1#1: start worker process 36
+･･･
+
+//-------------------stopコマンド実行時のログ-----------
 2025/02/10 11:13:31 [notice] 1#1: signal 3 (SIGQUIT) received, shutting down
-2025/02/10 11:13:31 [notice] 29#29: gracefully shutting down
-2025/02/10 11:13:31 [notice] 30#30: gracefully shutting down
-2025/02/10 11:13:31 [notice] 31#31: gracefully shutting down
-2025/02/10 11:13:31 [notice] 30#30: exiting
-2025/02/10 11:13:31 [notice] 32#32: gracefully shutting down
-2025/02/10 11:13:31 [notice] 29#29: exiting
-2025/02/10 11:13:31 [notice] 32#32: exiting
-2025/02/10 11:13:31 [notice] 33#33: gracefully shutting down
-2025/02/10 11:13:31 [notice] 31#31: exiting
-2025/02/10 11:13:31 [notice] 36#36: gracefully shutting down
-2025/02/10 11:13:31 [notice] 29#29: exit
-2025/02/10 11:13:31 [notice] 30#30: exit
-2025/02/10 11:13:31 [notice] 33#33: exiting
-2025/02/10 11:13:31 [notice] 32#32: exit
-2025/02/10 11:13:31 [notice] 36#36: exiting
-2025/02/10 11:13:31 [notice] 31#31: exit
-2025/02/10 11:13:31 [notice] 33#33: exit
-2025/02/10 11:13:31 [notice] 36#36: exit
-2025/02/10 11:13:31 [notice] 34#34: gracefully shutting down
-2025/02/10 11:13:31 [notice] 35#35: gracefully shutting down
-2025/02/10 11:13:31 [notice] 35#35: exiting
-2025/02/10 11:13:31 [notice] 34#34: exiting
-2025/02/10 11:13:31 [notice] 34#34: exit
-2025/02/10 11:13:31 [notice] 35#35: exit
-2025/02/10 11:13:31 [notice] 1#1: signal 17 (SIGCHLD) received from 35
-2025/02/10 11:13:31 [notice] 1#1: worker process 35 exited with code 0
-2025/02/10 11:13:31 [notice] 1#1: signal 29 (SIGIO) received
-2025/02/10 11:13:31 [notice] 1#1: signal 17 (SIGCHLD) received from 29
-2025/02/10 11:13:31 [notice] 1#1: worker process 29 exited with code 0
-2025/02/10 11:13:31 [notice] 1#1: worker process 36 exited with code 0
-2025/02/10 11:13:31 [notice] 1#1: signal 29 (SIGIO) received
-2025/02/10 11:13:31 [notice] 1#1: signal 17 (SIGCHLD) received from 31
-2025/02/10 11:13:31 [notice] 1#1: worker process 31 exited with code 0
-2025/02/10 11:13:31 [notice] 1#1: signal 29 (SIGIO) received
-2025/02/10 11:13:31 [notice] 1#1: signal 17 (SIGCHLD) received from 34
-2025/02/10 11:13:31 [notice] 1#1: worker process 33 exited with code 0
-2025/02/10 11:13:31 [notice] 1#1: worker process 34 exited with code 0
-2025/02/10 11:13:31 [notice] 1#1: signal 29 (SIGIO) received
-2025/02/10 11:13:31 [notice] 1#1: signal 17 (SIGCHLD) received from 30
-2025/02/10 11:13:31 [notice] 1#1: worker process 30 exited with code 0
-2025/02/10 11:13:31 [notice] 1#1: signal 29 (SIGIO) received
-2025/02/10 11:13:31 [notice] 1#1: signal 17 (SIGCHLD) received from 32
-2025/02/10 11:13:31 [notice] 1#1: worker process 32 exited with code 0
+･･･
 2025/02/10 11:13:31 [notice] 1#1: exit
-/docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration
-/docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/
-/docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh
-10-listen-on-ipv6-by-default.sh: info: IPv6 listen already enabled
-/docker-entrypoint.sh: Sourcing /docker-entrypoint.d/15-local-resolvers.envsh
-/docker-entrypoint.sh: Launching /docker-entrypoint.d/20-envsubst-on-templates.sh
-/docker-entrypoint.sh: Launching /docker-entrypoint.d/30-tune-worker-processes.sh
-/docker-entrypoint.sh: Configuration complete; ready for start up
+
+//-------------------restartコマンド実行時のログ-----------
+･･･
 2025/02/10 11:21:31 [notice] 1#1: using the "epoll" event method
 2025/02/10 11:21:31 [notice] 1#1: nginx/1.27.4
 2025/02/10 11:21:31 [notice] 1#1: built by gcc 12.2.0 (Debian 12.2.0-14)
 2025/02/10 11:21:31 [notice] 1#1: OS: Linux 5.15.167.4-microsoft-standard-WSL2
 2025/02/10 11:21:31 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
 2025/02/10 11:21:31 [notice] 1#1: start worker processes
-2025/02/10 11:21:31 [notice] 1#1: start worker process 22
-2025/02/10 11:21:31 [notice] 1#1: start worker process 23
-2025/02/10 11:21:31 [notice] 1#1: start worker process 24
-2025/02/10 11:21:31 [notice] 1#1: start worker process 25
-2025/02/10 11:21:31 [notice] 1#1: start worker process 26
-2025/02/10 11:21:31 [notice] 1#1: start worker process 27
-2025/02/10 11:21:31 [notice] 1#1: start worker process 28
-2025/02/10 11:21:31 [notice] 1#1: start worker process 29
-
+･･･
 ```
 
 ### コンテナを破棄する
@@ -262,28 +226,35 @@ cde490e8107f   nginx          "/docker-entrypoint.…"   About an hour ago   Exi
 // 対象のコンテナを削除する
 >docker container rm cde490e8107f
 cde490e8107f
+```
 
+```
 // 削除されていることを確認
 > docker container ls -a
 CONTAINER ID   IMAGE          COMMAND                   CREATED          STATUS                    PORTS                    NAMES
 4d148ff25d96   nginx          "/docker-entrypoint.…"   52 minutes ago   Up 41 minutes             80/tcp                   affectionate_hermann
+```
 
+- 試しに、ステータスが Up のコンテナを削除する。
 
-// 試しに、ステータスがUpのコンテナを削除してみる。
-// Errorになり削除出来ない。
+```
 >docker container rm 4d148ff25d96
 Error response from daemon: cannot remove container "/affectionate_hermann": container is running: stop the container before removing or force remove
+// Errorになり削除出来ない。
+```
 
-// stopしコンテナを削除してみる。
-// 削除成功
+- コンテナを stop してから削除する。
+
+```
 > docker container stop 4d148ff25d96
 4d148ff25d96
+
 >docker container rm 4d148ff25d96
 4d148ff25d96
+```
 
-// 削除したため、一覧に表示されない。
+```
 > docker container ls -a
 CONTAINER ID   IMAGE          COMMAND                   CREATED        STATUS                    PORTS                    NAMES
-
-
+// 削除したため、一覧に表示されない。
 ```

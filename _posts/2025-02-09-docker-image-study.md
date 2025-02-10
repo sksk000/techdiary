@@ -41,12 +41,11 @@ tags:
 
 ### イメージのダウンロード・破棄
 
-- イメージのダウンロード
+- `docker image pull ubuntu`を実行し、ubuntu の image をインストールする。
 
 ```
-// 今回はubuntuをインストールする。
-// tagを設定しなければ、最新のタグのものをインストールする。
 >docker image pull ubuntu
+// tagを設定しなければ、最新のタグのものをインストールする。
 
 Using default tag: latest
 latest: Pulling from library/ubuntu
@@ -61,19 +60,23 @@ REPOSITORY      TAG       IMAGE ID       CREATED       SIZE
 ubuntu          latest    72297848456d   12 days ago   117MB
 hello-world     latest    d715f14f9eca   2 weeks ago   20.4kB
 ･･･
-
+// ubuntuをインストールされていることを確認出来た。
 // repository: イメージ名
 // tag: イメージのバージョン
 
-// 今度はイメージをダウンロード時にタグ指定して実行する。
+```
+
+- 今度は、`docker image pull ubuntu:20.04`を実行しインストールを行う。
+
+```
 >docker image pull ubuntu:20.04
+// タグ指定している。
 
 20.04: Pulling from library/ubuntu
 d9802f032d67: Download complete
 Digest: sha256:8e5c4f0285ecbb4ead070431d29b576a530d3166df73ec44affc1cd27555141b
 Status: Downloaded newer image for ubuntu:20.04
 docker.io/library/ubuntu:20.04
-
 // 実行すると、今度はubuntu:20.04がダウンロードされる。
 
 >docker image ls
@@ -81,12 +84,11 @@ docker.io/library/ubuntu:20.04
 REPOSITORY      TAG       IMAGE ID       CREATED        SIZE
 ubuntu          latest    72297848456d   12 days ago    117MB
 ubuntu          20.04     8e5c4f0285ec   4 months ago   109MB
-
-//tagが異なっていることが確認できた。
+// tagが異なっていることが確認できた。
 
 ```
 
-- イメージの破棄
+- `docker image rm`でイメージの削除を行う。
 
 ```
 >docker image rm ubuntu
@@ -102,14 +104,17 @@ REPOSITORY      TAG       IMAGE ID       CREATED        SIZE
 ubuntu          20.04     8e5c4f0285ec   4 months ago   109MB
 
 // ubuntu:20.04のみになっている事がわかる。
+```
 
-// docker image rm イメージIDを指定しイメージを削除することも可能
+- `docker image rm <イメージID>`でイメージ ID を指定し削除を行う。
+
+```
 >docker image rm 8e5c4f0285ec
+
 Untagged: ubuntu:20.04
 Deleted: sha256:8e5c4f0285ecbb4ead070431d29b576a530d3166df73ec44affc1cd27555141b
 
-// イメージが削除されたことを確認。
 >docker image ls
 REPOSITORY      TAG       IMAGE ID       CREATED       SIZE
-
+// イメージが削除されたことを確認。
 ```
