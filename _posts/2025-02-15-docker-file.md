@@ -71,7 +71,7 @@ REPOSITORY      TAG       IMAGE ID       CREATED        SIZE
  => => unpacking to docker.io/library/my-image:v1                                                                                                                                                                     0.0s
 
 View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/ztjh9ax8gdcs2tbs0xdtbmou6
-PS D:\testdocker> docker image ls
+> docker image ls
 REPOSITORY      TAG       IMAGE ID       CREATED        SIZE
 nginx           latest    91734281c0eb   9 days ago     279MB
 ubuntu          latest    72297848456d   2 weeks ago    117MB
@@ -91,5 +91,4 @@ my-image        v1        4d80da5b0b1b   4 months ago   109MB
 <none>          <none>    19eef52202bf   4 months ago   109MB
 ubuntu          20.04     8e5c4f0285ec   4 months ago   109MB
 ruby            3.1.2     7681a3d37560   2 years ago    1.32GB
-PS D:\testdocker>
 ```
