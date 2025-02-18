@@ -34,8 +34,6 @@ Mode                 LastWriteTime         Length Name
 d-----        2025/02/18     15:33                docker
 // testdockerの中にdockerフォルダが存在する。
 
-PS D:\testdocker\docker> ls
-
     ディレクトリ: D:\testdocker\docker
 
 
