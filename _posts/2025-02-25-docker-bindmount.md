@@ -1,12 +1,8 @@
 ---
 title: "バインドマウントについて理解する"
-last_modified_at: 2025-02-19T00:00:00+0900
+last_modified_at: 2025-02-25T00:00:00+0900
 tags:
-  - Linux
-  - Python
   - Docker
-  - Ruby
-  - RubyonRails
 ---
 
 ## 学んだこと
