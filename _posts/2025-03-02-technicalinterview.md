@@ -1,5 +1,5 @@
 ---
-title: "理解するために調べてみた"
+title: "理解するために調べたことをまとめてみた"
 last_modified_at: 2025-03-02T00:00:00+0900
 tags:
   - RubyonRails
