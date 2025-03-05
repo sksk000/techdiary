@@ -1,6 +1,6 @@
 ---
 title: "理解するために調べたことをまとめてみた2"
-last_modified_at: 2024-09-19T00:00:00+0900
+last_modified_at: 2025-03-05T00:00:00+0900
 tags:
   - RubyonRails
 ---
