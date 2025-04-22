@@ -1,5 +1,5 @@
 ---
-title: "TypeScriptの変数の型指定"
+title: "TypeScriptの変数の型指定について学ぶ"
 last_modified_at: 2025-04-21T00:00:00+0900
 tags:
   - TypeScript
