@@ -1,8 +1,9 @@
 ---
-title: "TypeScriptにてカスタムフックの作成について学ぶ"
+title: "TypeScriptとReactでChakraUIを使いアプリを作成するための開発環境づくりを行う"
 last_modified_at: 2025-04-25T00:00:00+0900
 tags:
   - TypeScript
+  - React
 ---
 
 ## 学んだこと
@@ -28,8 +29,6 @@ npx create-react-app . --template typescript
 
 - 依存関係を無視して、各種ライブラリをインストール
   - 依存関係を考えてインストールするのは大変だったので、一旦無視してインストールするようにした。
-  - TypeScript4.1 にアップグレードした意味は、`error TS6046: Argument for '--jsx' option must be: 'preserve', 'react-native', 'react'.`のエラーを解決するため。
-    - アップグレードしないと、`--jsx react-jsx`を TypeScript 側が認識しない。
 
 ```
 # プロジェクト作成時に入ったライブラリを一旦削除
@@ -49,9 +48,6 @@ npm install --save-dev --save-exact `
   @types/react@17.0.0 @types/react-dom@17.0.0 `
   @types/react-router-dom@5.1.7 `
   --legacy-peer-deps
-
-# TypeScript4.1に上げる
-npm install -E -D typescript@4.1.6 --legacy-peer-deps
 ```
 
 - tsconfig.json を React17 用で動かしたい為、compilerOptions の jsx を react に変更
